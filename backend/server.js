@@ -6,7 +6,19 @@ const server = http.createServer((req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Content-Type", "application/json");
 
-    if (req.url === "/api/message" && req.method === "GET") {
+    // Route 1: Welcome API
+    if (req.url === "/" && req.method === "GET") {
+
+        res.writeHead(200);
+
+        res.end(JSON.stringify({
+            message: "Welcome to GitHub Practice Project!"
+        }));
+
+    }
+
+    // Route 2: Existing message API
+    else if (req.url === "/api/message" && req.method === "GET") {
 
         res.writeHead(200);
 
@@ -14,7 +26,23 @@ const server = http.createServer((req, res) => {
             message: "Hello! Backend is working successfully."
         }));
 
-    } else {
+    }
+
+    // Route 3: New health check API
+    else if (req.url === "/api/health" && req.method === "GET") {
+
+        res.writeHead(200);
+
+        res.end(JSON.stringify({
+            status: "OK",
+            message: "Backend is healthy!",
+            port: 3111
+        }));
+
+    }
+
+    // Route 4: Invalid route
+    else {
 
         res.writeHead(404);
 
