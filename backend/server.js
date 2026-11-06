@@ -1,59 +1,87 @@
-
 const http = require("http");
 
-const server = http.createServer((req, res) => {
+function createServer() {
 
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Content-Type", "application/json");
+    return http.createServer((req, res) => {
 
-    // Route 1: Welcome API
-    if (req.url === "/" && req.method === "GET") {
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.setHeader("Content-Type", "application/json");
 
-        res.writeHead(200);
+        // Keep all your existing route conditions here:
+        // GET /
+        // GET /api/message
+        // GET /api/health
+        // 404 for unknown routes
 
-        res.end(JSON.stringify({
-            message: "Welcome to GitHub Practice Project!"
-        }));
+    });
 
-    }
+}
 
-    // Route 2: Existing message API
-    else if (req.url === "/api/message" && req.method === "GET") {
+if (require.main === module) {
+    const server = createServer();
 
-        res.writeHead(200);
+    server.listen(3111, () => {
+        console.log("Backend running on port 3111");
+    });
+}
 
-        res.end(JSON.stringify({
-            message: "Hello! Backend is working successfully."
-        }));
+module.exports = { createServer };
 
-    }
+// const http = require("http");
 
-    // Route 3: New health check API
-    else if (req.url === "/api/health" && req.method === "GET") {
+// const server = http.createServer((req, res) => {
 
-        res.writeHead(200);
+//     res.setHeader("Access-Control-Allow-Origin", "*");
+//     res.setHeader("Content-Type", "application/json");
 
-        res.end(JSON.stringify({
-            status: "OK",
-            message: "Backend is healthy!",
-            port: 3111
-        }));
+//     // Route 1: Welcome API
+//     if (req.url === "/" && req.method === "GET") {
 
-    }
+//         res.writeHead(200);
 
-    // Route 4: Invalid route
-    else {
+//         res.end(JSON.stringify({
+//             message: "Welcome to GitHub Practice Project!"
+//         }));
 
-        res.writeHead(404);
+//     }
 
-        res.end(JSON.stringify({
-            message: "Route not found"
-        }));
+//     // Route 2: Existing message API
+//     else if (req.url === "/api/message" && req.method === "GET") {
 
-    }
+//         res.writeHead(200);
 
-});
+//         res.end(JSON.stringify({
+//             message: "Hello! Backend is working successfully."
+//         }));
 
-server.listen(3111, () => {
-    console.log("Backend running on port 3111");
-});
+//     }
+
+//     // Route 3: New health check API
+//     else if (req.url === "/api/health" && req.method === "GET") {
+
+//         res.writeHead(200);
+
+//         res.end(JSON.stringify({
+//             status: "OK",
+//             message: "Backend is healthy!",
+//             port: 3111
+//         }));
+
+//     }
+
+//     // Route 4: Invalid route
+//     else {
+
+//         res.writeHead(404);
+
+//         res.end(JSON.stringify({
+//             message: "Route not found"
+//         }));
+
+//     }
+
+// });
+
+// server.listen(3111, () => {
+//     console.log("Backend running on port 3111");
+// });
